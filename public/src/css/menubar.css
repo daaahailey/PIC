@@ -13,7 +13,7 @@
   line-height: 14px;
   letter-spacing: 0em;
   text-align: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   justify-content: space-evenly;
   z-index: 10;
@@ -23,6 +23,7 @@ button {
   background-color: #ffffff;
   font-size: 10px;
   color: #767676;
+  cursor: pointer;
 }
 
 .btn-home,

@@ -71,7 +71,7 @@ fetch(`${url}/post/feed/?limit=100`, requestOptions)
           <section class="post-card">
             <nav class="user-info">
               <a href="./yourpage.html?id=${post.author.accountname}" class="post-card-profile">
-                <img src=${ post.author.image === "" ? "../src/images/search/default_profile.png"
+                <img src=${ post.author.image === "" ? "./src/images/search/default_profile.png"
                 : `${profilePic}`} alt="user-profile-img">
               </a>
               <a href="./yourpage.html?id=${post.author.accountname}" class="user">
@@ -409,6 +409,7 @@ const applyLike = (clickedBtn) => {
       // 좋아요 적용 후 피드 정보 새로 불러오기 (새로 불러와야 댓글 페이지에도 적용됨)
       const hasLiked = result.post.hearted;
       displayFollowingFeed(hasLiked);
+      
     })
     .catch(error => console.log('error', error));
   } else if(clickedPost.hearted !== true) {
@@ -429,6 +430,7 @@ const applyLike = (clickedBtn) => {
     localStorage.setItem("clicked-post", JSON.stringify(result.post));
     const hasLiked = result.post.hearted;
     displayFollowingFeed(hasLiked)
+
   })
   .catch(error => console.log('error', error));
   }

@@ -54,7 +54,7 @@ const displayClickedPost = () => {
   let postHTML = `
     <nav class="user-info">
             <a href="javascript:void(0)" class="post-card-profile">
-              <img src=${postInfo.author.image === "" ? "../src/images/search/default_profile.png"
+              <img src=${postInfo.author.image === "" ? "./src/images/search/default_profile.png"
               : `${url}/${postInfo.author.image}`} alt="user-profile-img">
             </a>
             <a href="javascript:void(0)" class="user">

@@ -83,8 +83,8 @@ const postList = (hasLiked) => {
         .then(result => {
           removeAllchild();
           // 버튼 활성화, 비활성화 이미지
-          listImg.src = "../src/images/mypage/icon-post-list-on.png"
-          albumImg.src = "../src/images/mypage/icon-post-album-off.png"
+          listImg.src = "./src/images/mypage/icon-post-list-on.png"
+          albumImg.src = "./src/images/mypage/icon-post-album-off.png"
           // 포스트가 하나라도 있을 경우 
           if(result.post.length >= 1) {
               if(hasLiked === undefined) {
@@ -119,7 +119,7 @@ const postList = (hasLiked) => {
                   <section class="post-card">
                     <nav class="user-info">
                       <a href="javascript:void(0)" class="post-card-profile">
-                        <img src=${item.author.image === "" ? "../src/images/search/default_profile.png"
+                        <img src=${item.author.image === "" ? "./src/images/search/default_profile.png"
                         : `${profilePic}`} alt="user-profile-img">
                       </a>
                       <a href="javascript:void(0)" class="user">
@@ -270,15 +270,6 @@ slideButtons.forEach((btn) => {
   })
 }
 
-// 라이크 핸들링
-const app = document.querySelector("#app");
-const handleLikeClick = (event) => {
-  const clickedBtn = event.target;
-  if(clickedBtn.id === "likebtn") {
-    applyLike(clickedBtn);
-  }
-}
-app.addEventListener("click", handleLikeClick)
 
 // 클릭시 좋아요 및 좋아요 취소
 const applyLike = (clickedBtn) => {
@@ -311,6 +302,7 @@ const applyLike = (clickedBtn) => {
       const hasLiked = result.post.hearted;
       console.log(hasLiked)
       postList(hasLiked);
+      location.reload();
       
     })
     .catch(error => console.log('error', error));
@@ -333,11 +325,23 @@ const applyLike = (clickedBtn) => {
     const hasLiked = result.post.hearted;
     console.log(hasLiked)
     postList(hasLiked);
+    location.reload();
 
   })
   .catch(error => console.log('error', error));
   }
 }
+
+// 라이크 핸들링
+const app = document.querySelector("#app");
+const handleLikeClick = (event) => {
+  const clickedBtn = event.target;
+  if(clickedBtn.id === "likebtn") {
+    applyLike(clickedBtn);
+  }
+}
+app.addEventListener("click", handleLikeClick)
+
 
 //게시글 앨범형
 const postAlbum = () => {
@@ -346,8 +350,8 @@ const postAlbum = () => {
       .then(res => {
         removeAllchild();
         // 버튼 활성화, 비활성화 이미지
-        listImg.src = "../src/images/mypage/icon-post-list-off.png"
-        albumImg.src = "../src/images/mypage/icon-post-album-on.png"
+        listImg.src = "./src/images/mypage/icon-post-list-off.png"
+        albumImg.src = "./src/images/mypage/icon-post-album-on.png"
         const posts = res.post;
         let postHTML = '<h2 class="txt-hide">게시글 사진만 모아보기</h2>';
         if (posts.length > 0) {

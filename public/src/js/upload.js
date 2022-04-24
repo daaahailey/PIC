@@ -50,7 +50,7 @@ const setProfile = (event) => {
         imgBlock.innerHTML += `
           <div class="img_wrap">
             <img class="img_single" src="${event.target.result}" alr="img"/>
-            <img class="btn_x" src="../src/images/upload/x.svg" onclick="deleteSingleImg()"/>
+            <img class="btn_x" src="./src/images/upload/x.svg" onclick="deleteSingleImg()"/>
           </div>`;
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -63,7 +63,7 @@ const setProfile = (event) => {
           imgBlock.innerHTML += `
           <div id="${file.lastModified}" class="img_wrap">
             <img class="img_multi" src="${event.target.result}" alr="img${idx}"/>
-            <img data-index='${file.lastModified}' class="btn_x" src="../src/images/upload/x.svg" onclick="deleteMultiImg(this)"/>
+            <img data-index='${file.lastModified}' class="btn_x" src="./src/images/upload/x.svg" onclick="deleteMultiImg(this)"/>
           </div>`;
         };
         reader.readAsDataURL(event.target.files[idx]);
