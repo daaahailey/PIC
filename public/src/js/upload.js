@@ -17,12 +17,13 @@ const imgBlock = document.querySelector(".imgs_wrap");
 const token = sessionStorage.getItem("pic_token");
 const profileUrl = sessionStorage.getItem("pic_userImg");
 
+
 // 이미지 업로드 후 res 받은 이미지의 url을 저장하기 위한 변수, multi이면 ,로 구분
 let imgUrl = "";
 
 // user profile 이미지를 서버에서 받아와 바꾸기
 const profileImg = document.querySelector("#profileImg");
-profileImg.setAttribute("src", "http://146.56.183.55:5050/" + profileUrl);
+profileImg.setAttribute("src", profileUrl);
 
 // conent textarea 글자수에 따라 높이 조절
 const resize = (obj) => {
@@ -49,7 +50,7 @@ const setProfile = (event) => {
       reader.onload = (event) => {
         imgBlock.innerHTML += `
           <div class="img_wrap">
-            <img class="img_single" src="${event.target.result}" alr="img"/>
+            <img class="img_single" src="${event.target.result}" alt="img"/>
             <img class="btn_x" src="./src/images/upload/x.svg" onclick="deleteSingleImg()"/>
           </div>`;
       };
@@ -62,7 +63,7 @@ const setProfile = (event) => {
         reader.onload = (event) => {
           imgBlock.innerHTML += `
           <div id="${file.lastModified}" class="img_wrap">
-            <img class="img_multi" src="${event.target.result}" alr="img${idx}"/>
+            <img class="img_multi" src="${event.target.result}" alt="img${idx}"/>
             <img data-index='${file.lastModified}' class="btn_x" src="./src/images/upload/x.svg" onclick="deleteMultiImg(this)"/>
           </div>`;
         };
@@ -131,13 +132,13 @@ const imgUpload = async () => {
     };
 
     return await fetch(
-      "http://146.56.183.55:5050/image/uploadfiles",
+      "https://mandarin.api.weniv.co.kr/image/uploadfiles",
       requestOptions
     )
       .then((response) => response.json())
       .then((result) => {
         // 사진이 여러장일 경우를 대비해 "1.png,2.png,3.png" 형식이 되도록 해주고 imgUrl 변수에 넣어준다.
-        return result.map((item) => item.filename).join();
+        return result.map((item) => `https://mandarin.api.weniv.co.kr/${item.filename}`).join();
       })
       .catch((error) => console.log("error", error));
   }
@@ -162,7 +163,7 @@ const postUpload = () => {
     redirect: "follow",
   };
 
-  fetch("http://146.56.183.55:5050/post", requestOptions)
+  fetch("https://mandarin.api.weniv.co.kr/post", requestOptions)
     .then((response) => response.json())
     .then(() => (location.href = "./mypage.html"))
     .catch((error) => console.log("error", error));

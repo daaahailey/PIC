@@ -32,7 +32,7 @@ const checkEmailValid = () => {
     redirect: "follow",
   };
 
-  fetch("http://146.56.183.55:5050/user/emailvalid", requestOptions)
+  fetch("https://mandarin.api.weniv.co.kr/user/emailvalid", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       const trueCase = "사용 가능한 이메일 입니다.";

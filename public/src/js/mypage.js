@@ -1,4 +1,4 @@
-const url = "http://146.56.183.55:5050";
+const url = "https://mandarin.api.weniv.co.kr";
 const sessionAccountName = sessionStorage.getItem("pic_accountName");
 const token = sessionStorage.getItem("pic_token");
 
@@ -35,7 +35,7 @@ fetch(`${url}/profile/${sessionAccountName}`, requestOptions)
     .then(res => res.json())
     .then(res => {
         const profile = res.profile;
-        document.querySelector("#profile-img").setAttribute("src", url+"/"+profile.image);
+        document.querySelector("#profile-img").setAttribute("src", profile.image);
         document.querySelector(".profile-name").innerHTML = profile.username;
         document.querySelector(".profile-id").innerHTML = '@' + profile.accountname;
         document.querySelector(".profile-info").innerHTML = profile.intro;
@@ -56,7 +56,7 @@ fetch(`${url}/product/${sessionAccountName}`, requestOptions)
         products.forEach((product) => {
           productHTML += `
             <div class="item-container">
-                <a href=""><img src="${url}/${product.itemImage}" alt="판매 중인 상품 사진"></a>
+                <a href=""><img src="${product.itemImage}" alt="판매 중인 상품 사진"></a>
                 <p class="item-tit">${product.itemName}</p>
                 <p class="item-price">${product.price}</p>
             </div>
@@ -96,7 +96,7 @@ const postList = (hasLiked) => {
                 // 포스트에 있는 유저 프로필 이미지
                 let profilePic = item.author.image;
                 if(!profilePic.includes("http")) {
-                  profilePic = `${url}/${profilePic}`;
+                  profilePic = `${profilePic}`;
                 }
                 // ""들어간 string에서 ""제거
                 const content = item.content.replaceAll(/^"|"$/g, ""); 
@@ -141,17 +141,19 @@ const postList = (hasLiked) => {
         
                 // 이미지가 있는 경우
                 if(images) {
+                 
                   const imgArr = images.split(',');
                   let imgCount = imgArr.length;
+                  // console.log(imgArr)
                   
                   if (imgCount === 1) {
                     // 포스트 이미지 1개 일때  
-                    postHTML += `<img src ="${url}/${images}" alt="feed-posting-image"></div></div>`
+                    postHTML += `<img src ="${images}" alt="feed-posting-image"></div></div>`
                   } else if(imgCount > 1) {
                     // 포스트 이미지 1개 이상
                     imgArr.forEach((img) => {
                       postHTML += `
-                        <img src="${url}/${img}" alt="feed-posting-image">`
+                        <img src="${img}" alt="feed-posting-image">`
                     })
                     postHTML += `</div>`
                   }
@@ -361,7 +363,7 @@ const postAlbum = () => {
                     firstImage = images.split(',')[0]
                     postHTML +=
                     `
-                        <img src="${url}/${firstImage}" alt="게시글 첫번째 사진" class="post-img-list">
+                        <img src="${firstImage}" alt="게시글 첫번째 사진" class="post-img-list">
                     `
                 }
             })
@@ -406,8 +408,9 @@ const handleDeletePost = () => {
 const handleEditPost = () => {
     // 클릭된 포스트 아이디
     const postId = feedData.post[postToDeleteOrEdit].id;
-
+    console.log(postId)
     // 여기에 게시물 수정할 코드 작성 하시면 될 것 같습니다.
+    //API에서 해당 게시물 수정
     // 수정에 성공하면 아래 코드를 입력해 해당 모달 창을 삭제하면 모달 창이 닫힙니다.
     const modal = document.querySelector(".modal");
     modal.remove();

@@ -21,7 +21,7 @@ const err_ID = document.querySelector("#userIDError");
 const err_Desc = document.querySelector("#userDescError");
 
 // 이미지를 업로드 하지 않을 경우 기본이미지가 db에 들어간다.
-let registerImgUrl = "1642573050179.png";
+let registerImgUrl = "https://mandarin.api.weniv.co.kr/1642573050179.png";
 
 // account valid flag
 let validID = true;
@@ -58,7 +58,7 @@ const checkIDValid = () => {
     redirect: "follow",
   };
 
-  fetch("http://146.56.183.55:5050/user", requestOptions)
+  fetch("https://mandarin.api.weniv.co.kr/user", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       validID = true;
@@ -134,7 +134,7 @@ const imgUpload = async () => {
       redirect: "follow",
     };
     return await fetch(
-      "http://146.56.183.55:5050/image/uploadfile",
+      "https://mandarin.api.weniv.co.kr/image/uploadfile",
       requestOptions
     )
       .then((response) => response.json())
@@ -160,7 +160,7 @@ const join = () => {
       username: userName.value,
       accountname: userID.value,
       intro: userDesc.value,
-      image: registerImgUrl,
+      image: `https://mandarin.api.weniv.co.kr/${registerImgUrl}`,
     },
   });
 
@@ -171,7 +171,7 @@ const join = () => {
     redirect: "follow",
   };
 
-  fetch("http://146.56.183.55:5050/user", requestOptions)
+  fetch("https://mandarin.api.weniv.co.kr/user", requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .then(() => {

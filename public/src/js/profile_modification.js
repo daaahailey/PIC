@@ -28,6 +28,8 @@ const sessionAccountName = sessionStorage.getItem("pic_accountName");
 // account valid flag
 let validID = true;
 
+console.log(sessionImgUrl)
+
 // token과 account name을 서버에 보내 my info를 받아온다.
 const getMyInfo = () => {
   const myHeaders = new Headers();
@@ -40,7 +42,7 @@ const getMyInfo = () => {
   };
 
   fetch(
-    "http://146.56.183.55:5050/profile/" + sessionAccountName,
+    "https://mandarin.api.weniv.co.kr/profile/" + sessionAccountName,
     requestOptions
   )
     .then((response) => response.json())
@@ -52,7 +54,7 @@ const getMyInfo = () => {
       userDesc.value = profile.intro;
       profileImg.setAttribute(
         "src",
-        "http://146.56.183.55:5050/" + profile.image
+        `${profile.image}`
       );
     })
     .catch((error) => console.log("error", error));
@@ -77,7 +79,7 @@ const checkIDValid = () => {
     redirect: "follow",
   };
 
-  fetch("http://146.56.183.55:5050/user", requestOptions)
+  fetch("https://mandarin.api.weniv.co.kr/user", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       validID = true;
@@ -149,7 +151,7 @@ const setProfile = (event) => {
 const imgUpload = async () => {
   if (imgInput.files.length) {
     const formdata = new FormData();
-    formdata.append("image", imgInput.files[0], "basic-profile-img.png");
+    formdata.append("image", imgInput.files[0], "https://mandarin.api.weniv.co.kr/basic-profile-img.png");
     const requestOptions = {
       method: "POST",
       body: formdata,
@@ -157,7 +159,7 @@ const imgUpload = async () => {
     };
 
     return await fetch(
-      "http://146.56.183.55:5050/image/uploadfile",
+      "https://mandarin.api.weniv.co.kr/image/uploadfile",
       requestOptions
     )
       .then((response) => response.json())
@@ -165,7 +167,7 @@ const imgUpload = async () => {
         return result.filename;
       })
       .then((res) => {
-        sessionImgUrl = res;
+        sessionImgUrl = `https://mandarin.api.weniv.co.kr/${res}`;
       })
       .catch((error) => console.log("error", error));
   }
@@ -193,7 +195,7 @@ const saveModification = () => {
     redirect: "follow",
   };
 
-  fetch("http://146.56.183.55:5050/user", requestOptions)
+  fetch("https://mandarin.api.weniv.co.kr/user", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       // err일 경우 message를 객체에 넣어서 보내준다.
@@ -201,7 +203,7 @@ const saveModification = () => {
         alert("프로필이 성공정으로 수정되었습니다.");
         sessionStorage.setItem("pic_accountName", result.user.accountname);
         sessionStorage.setItem("pic_userName", result.user.username);
-        sessionStorage.setItem("pic_userImg", result.user.image);
+        sessionStorage.setItem("pic_userImg", `${result.user.image}`);
         location.reload();
       }
     })

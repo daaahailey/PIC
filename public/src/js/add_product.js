@@ -23,7 +23,7 @@ const itemNameErr = document.querySelector("#itemNameError");
 const token = sessionStorage.getItem("pic_token");
 
 // fetch
-const url = "http://146.56.183.55:5050";
+const url = "https://mandarin.api.weniv.co.kr";
 let imgUrl = "";
 let priceN = 0;
 
@@ -117,7 +117,7 @@ const addProduct = () => {
       itemName: itemName.value,
       price: priceN,
       link: link.value,
-      itemImage: imgUrl,
+      itemImage: `https://mandarin.api.weniv.co.kr/${imgUrl}`,
     },
   });
 

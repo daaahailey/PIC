@@ -4,7 +4,7 @@ const postEditBtn = document.querySelectorAll(".post-edit-btn");
 const feedContainer = document.querySelector("#feed-container"); // main
 
 // API 이용하기 위한 변수들
-const url = "http://146.56.183.55:5050";
+const url = "https://mandarin.api.weniv.co.kr";
 const token = sessionStorage.getItem("pic_token");
 const accountName = sessionStorage.getItem("pic_accountName");
 
@@ -23,7 +23,7 @@ const displayFollowingFeed = (hasLiked) => {
 fetch(`${url}/post/feed/?limit=100`, requestOptions)
   .then(response => response.json())
   .then(result => {
-    // console.log(result)
+    console.log(result)
     // 팔로잉 하는 사람의 포스트가 없을 경우 기본 페이지 디스플레이
     if (result.posts.length === 0){     
       const defaultDisplay = document.createElement("section");
@@ -70,11 +70,11 @@ fetch(`${url}/post/feed/?limit=100`, requestOptions)
         <h2 class="txt-hide">포스팅 카드</h2>
           <section class="post-card">
             <nav class="user-info">
-              <a href="./yourpage.html?id=${post.author.accountname}" class="post-card-profile">
-                <img src=${ post.author.image === "" ? "./src/images/search/default_profile.png"
+              <a href="javascript:void(0)" class="post-card-profile">
+                <img src=${ post.author.image === "" ? "../src/images/search/default_profile.png"
                 : `${profilePic}`} alt="user-profile-img">
               </a>
-              <a href="./yourpage.html?id=${post.author.accountname}" class="user">
+              <a href="javascript:void(0)" class="user">
                 <span class="user-name">${post.author.username}</span>
                 <span class="user-id">@${post.author.accountname}</span>
               </a>
@@ -98,12 +98,12 @@ fetch(`${url}/post/feed/?limit=100`, requestOptions)
           
           if (imgCount === 1) {
             // 포스트 이미지 1개 일때  
-            postHTML += `<img src ="${url}/${images}" alt="feed-posting-image"></div></div>`
+            postHTML += `<img src ="${images}" alt="feed-posting-image"></div></div>`
           } else if(imgCount > 1) {
             // 포스트 이미지 1개 이상
             imgArr.forEach((img) => {
               postHTML += `
-                <img src="${url}/${img}" alt="feed-posting-image">`
+                <img src="${img}" alt="feed-posting-image">`
             })
             postHTML += `</div>`
           }
@@ -234,9 +234,11 @@ slideButtons.forEach((btn) => {
 
 
 // 내가 팔로잉 하고있는 유저 확인
+console.log(`${url}/profile/${accountName}/following`)
 fetch(`${url}/profile/${accountName}/following`, requestOptions)
   .then(response => response.json())
   .then(result => {
+    console.log(result)
     const sectionForNewUser = document.querySelector(".section-feed-new-user");
     //팔로잉 하는 유저가 있는 경우 디폴트 디스플레이 삭제
     
@@ -409,7 +411,6 @@ const applyLike = (clickedBtn) => {
       // 좋아요 적용 후 피드 정보 새로 불러오기 (새로 불러와야 댓글 페이지에도 적용됨)
       const hasLiked = result.post.hearted;
       displayFollowingFeed(hasLiked);
-      
     })
     .catch(error => console.log('error', error));
   } else if(clickedPost.hearted !== true) {
@@ -430,8 +431,26 @@ const applyLike = (clickedBtn) => {
     localStorage.setItem("clicked-post", JSON.stringify(result.post));
     const hasLiked = result.post.hearted;
     displayFollowingFeed(hasLiked)
-
   })
   .catch(error => console.log('error', error));
   }
 }
+
+// 독바 메뉴 클릭시 해당 페이지로 이동
+const chatBtn = document.querySelector(".btn-chat");
+const newPostBtn = document.querySelector(".btn-new-post");
+const profileBtn = document.querySelector(".btn-profile");
+
+const goToChat = () => {
+  location.href = "chat_room.html";
+}
+const uploadNewPost = () => {
+  location.href = "upload.html";
+}
+const goToProfile = () => {
+  location.href = "mypage.html";
+}
+
+chatBtn.addEventListener("click", goToChat);
+newPostBtn.addEventListener("click", uploadNewPost);
+profileBtn.addEventListener("click", goToProfile);

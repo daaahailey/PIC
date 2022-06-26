@@ -1,4 +1,4 @@
-const url = "http://146.56.183.55:5050";
+const url = "https://mandarin.api.weniv.co.kr";
 const token = sessionStorage.getItem("pic_token");
 const userId = sessionStorage.getItem("pic_userId");
 const postId = localStorage.getItem("clicked-post-id");
@@ -8,7 +8,7 @@ let commentsListArr = [];
 // 댓글 입력란 프로필 이미지 반영하기
 const userImg = sessionStorage.getItem("pic_userImg");
 const profileImg = document.querySelector(".profile-img");
-profileImg.src = url+"/"+userImg;
+profileImg.src = userImg;
 
 // 포스트 상세 데이터 가져오기
 const getPostData = () => {
@@ -55,7 +55,7 @@ const displayClickedPost = () => {
     <nav class="user-info">
             <a href="javascript:void(0)" class="post-card-profile">
               <img src=${postInfo.author.image === "" ? "./src/images/search/default_profile.png"
-              : `${url}/${postInfo.author.image}`} alt="user-profile-img">
+              : `${postInfo.author.image}`} alt="user-profile-img">
             </a>
             <a href="javascript:void(0)" class="user">
               <span class="user-name">${postInfo.author.username}</span>
@@ -80,12 +80,12 @@ const displayClickedPost = () => {
           // console.log(imgCount)        
           if (imgCount === 1) {
             // 포스트 이미지 1개 일때  
-            postHTML += `<img src ="${url}/${images}" alt="feed-posting-image"></div></div>`
+            postHTML += `<img src ="${images}" alt="feed-posting-image"></div></div>`
           } else if(imgCount > 1) {
             // 포스트 이미지 1개 이상
             imgArr.forEach((img) => {
               postHTML += `
-                <img src="${url}/${img}" alt="feed-posting-image">`
+                <img src="${img}" alt="feed-posting-image">`
             })
             postHTML += `</div>`
           }  
@@ -258,7 +258,7 @@ fetch(`${url}/post/${postId}/comments`, {
           <div class="user-info-container">
             <!-- 유저 프로필 이미지 -->
             <a href="">
-              <img src="${url}/${commentItem.author.image}" alt="user-profile-picture" />
+              <img src="${commentItem.author.image}" alt="user-profile-picture" />
             </a>
             <div class="comment-user-info">
               <a href="">${commentItem.author.username}</a><span>· 5분 전</span>
@@ -304,7 +304,7 @@ fetch(`${url}/post/${postId}/comments`, {
         <div class="user-info-container">
           <!-- 유저 프로필 이미지 -->
           <a href="">
-            <img src="${url}/${commentItem.author.image}" alt="user-profile-picture" />
+            <img src="${commentItem.author.image}" alt="user-profile-picture" />
           </a>
           <div class="comment-user-info">
             <a href="">${commentItem.author.username}</a><span>· 5분 전</span>

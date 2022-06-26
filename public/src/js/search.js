@@ -1,9 +1,9 @@
-const url = "http://146.56.183.55:5050";
+const url = "https://mandarin.api.weniv.co.kr";
 const token = sessionStorage.getItem("pic_token");
 const searchForm = document.querySelector('.search-form');
 const searchInput = document.querySelector('.search-input');
 
-// 검색 (accountname, username 검색 가능)
+// 검색 (account name, username 검색 가능)
 const myHeaders = new Headers();
 myHeaders.append("Authorization", `Bearer ${token}`);
 myHeaders.append("Content-type", "application/json")
@@ -23,9 +23,10 @@ const searchUser = (e) => {
       .then(res => {
         document.querySelector(".container").innerHTML = '';
         res.forEach(user => {
+          console.log(user)
           document.querySelector(".container").innerHTML += `
           <article>
-            <img class="img-profile" src="${url}/${user.image}" alt="유저 프로필 이미지" />
+            <img class="img-profile" src="${user.image}" alt="유저 프로필 이미지" />
             <a href="./yourpage.html?id=${user.accountname}">
               <div class="wrap-profile-desc">
                 <p class="profile-nick-name">${user.username}</p>

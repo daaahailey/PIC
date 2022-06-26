@@ -11,7 +11,7 @@ const pwd = document.querySelector("#pwd");
 const err_msg = document.querySelector("#emailError");
 
 // email 정규표현식 test
-const checkEmailFormet = () => {
+const checkEmailFormat = () => {
   const regExp =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
   return regExp.test(email.value);
@@ -20,7 +20,7 @@ const checkEmailFormet = () => {
 // input list의 value를 확인하여 로그인 버튼 활성화/비활성화
 const handleCheckInput = () => {
   // email과 pwd를 입력했고 eamil 형식이 부합할 경우 button 활성화
-  if (!!email.value && !!pwd.value && checkEmailFormet()) {
+  if (!!email.value && !!pwd.value && checkEmailFormat()) {
     submitBtn.removeAttribute("disabled");
     submitBtn.className = "btn_submit activate";
   } else {
@@ -34,10 +34,10 @@ const handleOnSubmit = () => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  const raw = JSON.stringify({
-    user: {
-      email: email.value,
-      password: pwd.value,
+  const raw = JSON.stringify({ 
+    "user": {
+      "email": email.value,
+      "password": pwd.value,
     },
   });
 
@@ -47,8 +47,8 @@ const handleOnSubmit = () => {
     body: raw,
     redirect: "follow",
   };
-
-  fetch("http://146.56.183.55:5050/user/login", requestOptions)
+  
+  fetch("https://mandarin.api.weniv.co.kr/user/login", requestOptions)
     .then((response) => response.json())
     .then((result) => {
       // 로그인에 실패하면 message가 들어있고 성공하면 없다.
